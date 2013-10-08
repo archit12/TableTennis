@@ -1,0 +1,322 @@
+@font-face {
+    font-family:'Open Sans';
+    font-style: normal;
+    font-weight: 10;
+    src: local('Open Sans'), local('OpenSans'), url('http://themes.googleusercontent.com/static/fonts/opensans/v5/cJZKeOuBrn4kERxqtaUH3T8E0i7KZn-EPnyo3HZu7kw.woff') format('woff');
+}
+@font-face {
+    font-family:'sansation';
+    src: url('../font/sansation_light.ttf');
+}
+::selection {
+    background-color: #FADF4F;
+}
+html, body, .outer-wrapper {
+    width: 100%;
+    height: 100%;
+    font-family: open sans, segoe ui, 'helvetica';
+}
+body {
+    padding: 0px;
+    margin: 0px;
+}
+.outer-wrapper {
+    height: 2000px;
+}
+.inner-wrapper {
+    margin: auto;
+    width: 100%;
+    height: 100%;
+}
+.nav {
+    position: fixed;
+    height: 22%;
+    width: 100%;
+    top: 0px;
+    background: #fff;
+    border-bottom: 2px solid #f0f0f0;
+    padding: 15px 0px;
+    z-index: 999;
+    -webkit-transition: all 0.5s linear;
+}
+.nav-small {
+    height: 4%;
+    border-width: 2px;
+    border-color: #ddd;
+}
+.logo-container {
+    height: 95%;
+    width: 18%;
+    margin-left: 4%;
+    float: left;
+    
+}
+.logo-container img {
+ height: 100%;
+ width: 100%;
+}
+.logo-container-small {
+    width: 10%;
+    margin-left: 10%;
+}
+.logo-container-small:after {
+    content: "Table Tennis Tournament 2013"
+}
+.title {
+    height: 40%;
+    font-family:'sansation';
+    font-size: 4vw;
+    margin-left: 30%;
+    padding-top: 3%;
+    color: #111;
+    -webkit-transition: all 0.5s linear;
+}
+.title-small {
+    /*margin-left: 5%;
+    font-size: 2vw;
+    padding-top: 5px;*/
+    height: 0px;
+    opacity: 0;
+    display: none;
+}
+.menu-container {
+    height: 20%;
+    width: 100%;
+    margin-left: 35%;
+}
+.menu-container-small {
+    margin-top: -20px;
+}
+.menu {
+    height: 100%;
+}
+.menu li {
+    font-family: sansation;
+    font-size: 1.3rem;
+    letter-spacing: 0.2rem;
+    list-style-type: none;
+    float: left;
+    padding: 0.5% 2% 0.5% 2%;
+    --webkit-transition: all 1s ease-in;
+}
+.menu li a {
+    text-decoration: none;
+    color: #aaa;
+    text-align: center;
+}
+.cursor-container {
+    height: 14%;
+    display: block;
+    margin-top: 0.3%;
+}
+.cursor-container-small {
+    margin-top: 1.8%;
+}
+.cursor {
+    margin-left: 49%;
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 17px solid #111;
+}
+.main-body {
+    position: absolute;
+    top: 25%;
+    height: 100%;
+    width: 100%;
+    background: #545;
+}
+.overlay {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-size: 4px 4px, 4px 4px;
+    background-image: -webkit-radial-gradient(#7d7d7d 1px, rgba(0, 0, 0, 0.5) 0px, transparent 0px), -webkit-radial-gradient(#7d7d7d 1px, rgba(0, 0, 0, 0.5) 0px, #000 0px);
+    background-image: radial-gradient(#7d7d7d 1px, rgba(0, 0, 0, 0.5) 0px, transparent 0px), radial-gradient(#7d7d7d 1px, rgba(0, 0, 0, 0.5) 0px, #000 0px);
+    background-position: 0 0, 2px 2px;
+    z-index: 1;
+    opacity: 0.2;
+}
+.full-page-div {
+    z-index: 0;
+    height: 100%;
+    position: relative;
+    width: 100%;
+    border: 1px solid #ddd;
+}
+.front {
+    position: absolute;
+    top: 0px;
+    height: 100%;
+    width: 100%;
+    z-index: 10;
+}
+.inner-container-home {
+    /*     background-image: url('../images/31.jpg');
+background-repeat: no-repeat;
+background-size: cover; */
+background-color: #5E1B1B;
+height: 170%;
+}
+.akgec-logo {
+    position: absolute;
+    top: 10%;
+    margin-left: 40%;
+    max-height: 30%;
+    height: 30%;
+    width: 17%;
+    opacity: 0;
+}
+.akgec-logo img {
+    height: 100%;
+    width: 100%;
+}
+.sponsors {
+    text-transform: uppercase;
+    text-align: center;
+    position: relative;
+    font-family: lato;
+    font-size: 3.6vw;
+    color: white;
+    height: 10%;
+    margin-top: 26%;
+    opacity: 1;
+}
+.date {
+    font-size: 3vw;
+    text-align: center;
+    color: wheat;
+    font-family: sansation;
+    padding-top: 2%;
+}
+.home-text-content {
+    font-size: 2vw;
+    font-family: lato;
+    width: 65%;
+    margin-left: 17%;
+    text-align: justify;
+    padding-top: 6%;
+    line-height: 4rem;
+    color: wheat;
+}
+.inner-container-details {
+    background: #FFF;
+}
+.inner-container-register {
+    background-color: #696611;
+}
+.inner-container-reach {
+    background-color: #ffffff;
+}
+.tt-bat {
+    position: absolute;
+    -webkit-transform: rotate(90deg);
+    top: 25%;
+    left: 8%;
+    height: 48%;
+    width: 34%;
+    z-index: 1;
+}
+.tt-ball2 {
+    position: absolute;
+    top: 63%;
+    left: 28%;
+    height: 20%;
+    width: 11%;
+    z-index: 2;
+}
+.tt-bat img, .tt-ball2 img {
+    height: 100%;
+    width: 100%;
+}
+.details-content {
+    font-family: lato;
+    width: 35%;
+    margin-right: 20%;
+    margin-top: 8%;
+    float: right;
+    font-size: 2vw;
+    text-align: justify;
+    color: #333;
+}
+.title-container {
+    text-transform: uppercase;
+    font-family: lato;
+    font-weight: 300;
+    padding-top: 2%;
+    height: 8%;
+    width: 100%;
+    font-size: 3vw;
+    color: #555;
+    text-align: center;
+}
+.border-ish {
+    margin-top: 2%;
+    display: block;
+    width: 80px;
+    height: 2px;
+    background: #060606;
+    margin: 0 auto;
+}
+.clearfix {
+    zoom: 1;
+}
+/* Menu Styling*/
+.menu li a:hover {
+    color: #13D3CB;
+}
+.menu a::before, .menu a::after {
+    display: inline-block;
+    opacity: 0;
+    -webkit-transition: -webkit-transform 0.3s, opacity 0.2s;
+    -moz-transition: -moz-transform 0.3s, opacity 0.2s;
+    transition: transform 0.3s, opacity 0.2s;
+}
+.menu a::before {
+    margin-right: 10px;
+    content:'[';
+    -webkit-transform: translateX(20px);
+    -moz-transform: translateX(20px);
+    transform: translateX(20px);
+}
+.menu a::after {
+    margin-left: 10px;
+    content:']';
+    -webkit-transform: translateX(-20px);
+    -moz-transform: translateX(-20px);
+    transform: translateX(-20px);
+}
+.menu a:hover::before, .menu a:hover::after, .menu a:focus::before, .menu a:focus::after {
+    opacity: 1;
+    -webkit-transform: translateX(0px);
+    -moz-transform: translateX(0px);
+    transform: translateX(0px);
+}
+.active {
+    color: #13D3CB !important;
+}
+.footer-container {
+    position: absolute;
+    width: 100%;
+    height: 72%;
+    top: 3626px;
+    background-color: #222;
+}
+.big-footer {
+    color: wheat;
+width: 80%;
+margin: auto;
+text-align: justify;
+font-size: 2vw;
+line-height: 4rem;
+padding-top: 4%;
+}
+.breadcrumbs ul li{
+    padding: 1% 2% 1% 2%;
+    float: left;
+    list-style: none;
+}
+.breadcrumbs {
+    margin-left: 55%;
+}
