@@ -21,7 +21,7 @@ body {
     margin: 0px;
 }
 .outer-wrapper {
-    height: 2000px;
+    height: 630%;
 }
 .inner-wrapper {
     margin: auto;
@@ -92,7 +92,7 @@ body {
 }
 .menu li {
     font-family: sansation;
-    font-size: 1.3rem;
+    font-size: 1.5vw;
     letter-spacing: 0.2rem;
     list-style-type: none;
     float: left;
@@ -122,7 +122,7 @@ body {
 }
 .main-body {
     position: absolute;
-    top: 25%;
+    margin-top: 25%;
     height: 100%;
     width: 100%;
     background: #545;
@@ -157,11 +157,9 @@ body {
 background-repeat: no-repeat;
 background-size: cover; */
 background-color: #5E1B1B;
-height: 170%;
+height: 230%;
 }
 .akgec-logo {
-    position: absolute;
-    top: 10%;
     margin-left: 40%;
     max-height: 30%;
     height: 30%;
@@ -197,8 +195,29 @@ height: 170%;
     margin-left: 17%;
     text-align: justify;
     padding-top: 6%;
-    line-height: 4rem;
+    line-height: 3rem;
     color: wheat;
+}
+.home-reviews-container {
+    text-align: justify;
+    width: 70%;
+    margin: auto;
+    padding: 2%;
+}
+.reviews {
+    -moz-column-count:4; /* Firefox */
+    -webkit-column-count:3; /* Safari and Chrome */
+    column-count:4;
+    -moz-column-gap:40px; /* Firefox */
+    -webkit-column-gap:40px; /* Safari and Chrome */
+    column-gap:40px;/* 
+    -webkit-column-break-inside: avoid; */
+}
+.review-elements {
+    padding: 4%;
+    margin-bottom: 2%;
+    font-family: open sans;
+    font-size: 1.2vw;
 }
 .inner-container-details {
     background: #FFF;
@@ -209,8 +228,16 @@ height: 170%;
 .inner-container-reach {
     background-color: #ffffff;
 }
+#map_canvas {
+    width: 100%;
+    height: 100%;
+}
+.go
+{
+    float: left;
+    margin: 10px;
+}
 .tt-bat {
-    position: absolute;
     -webkit-transform: rotate(90deg);
     top: 25%;
     left: 8%;
@@ -219,7 +246,6 @@ height: 170%;
     z-index: 1;
 }
 .tt-ball2 {
-    position: absolute;
     top: 63%;
     left: 28%;
     height: 20%;
@@ -297,20 +323,19 @@ height: 170%;
     color: #13D3CB !important;
 }
 .footer-container {
-    position: absolute;
     width: 100%;
-    height: 72%;
+    height: 81%;
     top: 3626px;
     background-color: #222;
 }
 .big-footer {
     color: wheat;
-width: 80%;
-margin: auto;
-text-align: justify;
-font-size: 2vw;
-line-height: 4rem;
-padding-top: 4%;
+    width: 80%;
+    margin: auto;
+    text-align: justify;
+    font-size: 2vw;
+    line-height: 4rem;
+    padding-top: 4%;
 }
 .breadcrumbs ul li{
     padding: 1% 2% 1% 2%;

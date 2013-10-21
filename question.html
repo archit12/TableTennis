@@ -1,0 +1,63 @@
+<html>
+<script type="text/javascript" src="script/jquery.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#querySubmitButton').click(function(){
+			 var contact = $('#emailTextBox').val();
+			 var query = $('#queryTextArea').val();
+			 var html_content = $('.query').html();
+			 $('.query').html("Sending... Please Wait!")
+			 $.ajax({
+			 	type : 'post',
+			 	url : 'query.php',
+			 	data : {
+			 		contact : contact,
+			 		query : query
+			 	}
+			 }).done(function(message){
+			 	console.log(message);
+			 	$('.query').html(html_content);
+			 	if (message == -1) {
+			 		alert("Enter valid contact details");
+			 	}
+			 	else if (message == -2) {
+			 		alert("Enter valid query");
+			 	}
+			 	else {
+			 		alert("We will contact you soon");
+			 	}
+			 });
+		});
+	});
+</script>
+<style type="text/css">
+	#queryTextArea
+	{
+		border-color: black;
+		width:50%;
+		height: 250px;
+		margin-top: 1%;
+		margin-left: 5%;
+	}
+	#emailTextBox
+	{
+		border-color: black;
+		margin-left: 5%;
+		width: 50%;
+		margin-top: 4%;
+	}
+	#querySubmitButton
+	{
+		margin-left: 5%;
+	}
+</style>
+<body>
+	<div class="query">
+	<input type='textbox' id="emailTextBox" placeholder="Your email Id or Contact Number" required/>
+	<br/>
+	<textarea id='queryTextArea' required/></textarea>
+	<br/>
+	<input type='button' id='querySubmitButton' value="submit" />
+	</div>
+</body>
+</html>

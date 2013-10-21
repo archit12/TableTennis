@@ -1,10 +1,16 @@
 $(document).ready(function() {
-
+	$('#map-overlay').click(function() {
+		$(this).hide();
+	});
+	$(document).scroll(function() {
+		if ($('#map-overlay').css("display")==="none") {
+			$('#map-overlay').show();
+		}
+	});
     //------------------ load transitions
 	    //--------------------AKGEC logo transition
 		    var timer = setTimeout(function() {
 		        $('.akgec-logo').animate({
-		            'top': '+=5%',
 		            'opacity': '1'
 		        }, 500);
 		    }, 600);
@@ -57,6 +63,7 @@ $(document).ready(function() {
 	    $('.menu li a').click(function() {
 	        $('.menu li a').removeClass('active');
 	        $(this).addClass('active');
+	        $('.active').find('span').css("background-color","#333 !important");
 	    });
 
 	//---------------manual scroll menu highlight
@@ -112,23 +119,24 @@ $(document).ready(function() {
 	    $(document).scroll(function() {
 	        if ($(document).scrollTop() > 200) {
 	            $('.nav').addClass('nav-small');
-	            $('.title').addClass('title-small');
+	            $('.title').hide();
+	            $('.menu li').css("font-size",'1.3rem');
 	            $('.menu-container').addClass('menu-container-small');
 	            $('.cursor-container').addClass('cursor-container-small');
-	            /*$('.logo-container').animate({'opacity':'0'}, 500, function() {
-	            	$('.logo-container img').attr('src', './images/logo2.png');
-	            });*/
-	            $('.logo-container').hmtl('logo-container-small');
+            	$('.logo-container').hide('slow', function() {
+            		$('.title-left').css("display", "block");
+            	});
+	            
 	        };
 	        if ($(document).scrollTop() < 190) {
 	            $('.nav').removeClass('nav-small');
+	            $('.title').show();
 	            $('.menu-container').removeClass('menu-container-small');
-	            $('.title').removeClass('title-small');
+	            $('.menu li').css("font-size",'1.5rem');
 	            $('.cursor-container').removeClass('cursor-container-small');
-	            $('.logo-container').removeClass('logo-container-small');
-	            /*$('.logo-container').animate({'opacity':'1'}, 500, function() {
-	            	$('.logo-container img').attr('src', './images/logo.png');
-	            });*/
+	            $('.title-left').hide('slow', function() {
+            		$('.logo-container').show("slow");
+            	});
 	        }
 	    });
 	//------------------ menu cursor position

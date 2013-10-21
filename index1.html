@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<!--[if IE 8 ]><html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
+    <title>
+        Table Tennis Tournament 2013 | Ajay Kumar Garg Engineering College
+    </title>
+    <meta name="description" content="Table Tennis Tournament">
+    <meta name="keywords" content="Table tennis, Ghaziabad, Ajay Kumar Garg Engineering College, AKG, Software Incubator, SI, css, TT, tournament, tt tournament, GDTA,">
+    <meta name="author" content="Software Incubator">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="subresource" href="js/jquery-1.10.1.min.js">
+    <link rel="subresource" href="js/script.js">
+    <link rel="stylesheet" type="text/css" href="css/style1.css">
+    <link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+    <script type="text/javascript">
+        var scripts = [
+        'js/jquery-1.10.1.min.js',
+        'js/script.js', 
+        'script/code.js'
+        ];
+        var src;
+        var script;
+        var pendingScripts = [];
+        var firstScript = document.scripts[0];
+
+// Watch scripts load in IE
+function stateChange() {
+  // Execute as many scripts in order as we can
+  var pendingScript;
+  while (pendingScripts[0] && pendingScripts[0].readyState == 'loaded') {
+    pendingScript = pendingScripts.shift();
+    // avoid future loading events from this script (eg, if src changes)
+    pendingScript.onreadystatechange = null;
+    // can't just appendChild, old IE bug if element isn't closed
+    firstScript.parentNode.insertBefore(pendingScript, firstScript);
+}
+}
+
+// loop through our script urls
+while (src = scripts.shift()) {
+  if ('async' in firstScript) { // modern browsers
+    script = document.createElement('script');
+    script.async = false;
+    script.src = src;
+    document.head.appendChild(script);
+}
+  else if (firstScript.readyState) { // IE<10
+    // create a script and add it to our todo pile
+    script = document.createElement('script');
+    pendingScripts.push(script);
+    // listen for state changes
+    script.onreadystatechange = stateChange;
+    // must set src AFTER adding onreadystatechange listener
+    // else we’ll miss the loaded event for cached scripts
+    script.src = src;
+}
+  else { // fall back to defer
+    document.write('<script src="' + src + '" defer></'+'script>');
+}
+}
+</script>
+<script type="text/javascript"
+src="https://maps.googleapis.com/maps/api/js?sensor=false">
+</script>
+<script type="text/javascript">
+    var map;
+    var directionsDisplay;
+    var directionsService;
+    var stepDisplay;
+    var markerArray = [];
+    var userLatLng = new google.maps.LatLng(28.676515199999997,77.5016382);
+  // Create a map and center it on Akgec.
+  var akgecLatLng = new google.maps.LatLng(28.676515199999997,77.5016382);
+  function initialize() {
+  // Instantiate a directions service.
+  directionsService = new google.maps.DirectionsService();
+  var mapOptions = {
+    zoom: 13,
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    center: akgecLatLng
+}
+map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+google.maps.visualRefresh = true;
+var styles = [
+{
+    featureType: "all",
+    stylers: [
+    { saturation: -60 }
+    ]
+}];
+
+map.setOptions({styles: styles});
+  // Create a renderer for directions and bind it to the map.
+  var rendererOptions = {
+    map: map
+}
+directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions)
+
+  // Instantiate an info window to hold step text.
+  stepDisplay = new google.maps.InfoWindow();
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+        function(position){ 
+          userLatLng = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);    
+          console.log(userLatLng);  
+          calcRoute();
+      }, function(error){
+        console.log("geolocation access denied :)");
+    });
+}
+}
+
+function calcRoute() {
+
+
+  // First, remove any existing markers from the map.
+  for (var i = 0; i < markerArray.length; i++) {
+    markerArray[i].setMap(null);
+}
+
+  // Now, clear the array itself.
+  markerArray = [];
+
+  // Retrieve the start and end locations and create
+  // a DirectionsRequest using WALKING directions.
+  var start = userLatLng;
+  var end = akgecLatLng;
+  var request = {
+      origin: start,
+      destination: end,
+      travelMode: google.maps.TravelMode.DRIVING
+  };
+
+  // Route the directions and pass the response to a
+  // function to create markers for each step.
+  directionsService.route(request, function(response, status) {
+    if (status == google.maps.DirectionsStatus.OK) {
+      /*var warnings = document.getElementById('warnings_panel');
+      warnings.innerHTML = '<b>' + response.routes[0].warnings + '</b>';*/
+      directionsDisplay.setDirections(response);
+      /*showSteps(response);*/
+  }
+});
+}
+
+/*function showSteps(directionResult) {
+  // For each step, place a marker, and add the text to the marker's
+  // info window. Also attach the marker to an array so we
+  // can keep track of it and remove it when calculating new
+  // routes.
+  var myRoute = directionResult.routes[0].legs[0];
+
+  for (var i = 0; i < myRoute.steps.length; i++) {
+    var marker = new google.maps.Marker({
+      position: myRoute.steps[i].start_point,
+      map: map
+    });
+    attachInstructionText(marker, myRoute.steps[i].instructions);
+    markerArray[i] = marker;
+  }
+}*/
+
+function attachInstructionText(marker, text) {
+  google.maps.event.addListener(marker, 'click', function() {
+    // Open an info window when the marker is clicked on,
+    // containing the text of the step.
+    stepDisplay.setContent(text);
+    stepDisplay.open(map, marker);
+});
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+      /*function initialize() {
+
+        var mapOptions = {
+          center: new google.maps.LatLng(28.676515199999997,77.5016382),
+          zoom: 14,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+      var map = new google.maps.Map(document.getElementById("map-canvas"),
+        mapOptions);
+        var rendererOptions = {
+    map: map
+  }
+      google.maps.visualRefresh = true;
+      var styles = [
+      {
+        featureType: "all",
+        stylers: [
+        { saturation: -60 }
+        ]
+    }];
+
+      map.setOptions({styles: styles});
+      var marker = new google.maps.Marker({
+        position: new google.maps.LatLng(28.676515199999997,77.5016382),
+        map: map,
+        animation: google.maps.Animation.DROP,
+        title:"Ajay Kumar Garg Engineering College"
+    });
+  }
+  google.maps.event.addDomListener(window, 'load', initialize);*/
+</script>
+<script type="text/javascript" src="js/queryScript.js">
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-45014905-1', 'tabletennis-akgec.co.in');
+  ga('send', 'pageview');
+
+</script>
+</head>
+
+<body>
+<div id="fb-root"></div>
+<script>
+  window.fbAsyncInit = function() {
+    // init the FB JS SDK
+    FB.init({
+      appId      : 'YOUR_APP_ID',                        // App ID from the app dashboard
+      channelUrl : '//WWW.YOUR_DOMAIN.COM/channel.html', // Channel file for x-domain comms
+      status     : true,                                 // Check Facebook Login status
+      xfbml      : true                                  // Look for social plugins on the page
+    });
+
+    // Additional initialization code such as adding Event Listeners goes here
+  };
+
+  // Load the SDK asynchronously
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/all.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+    <div class="outer-wrapper">
+        <div class="inner-wrapper">
+            <div class="nav">
+                <div class="title-left">
+                    OPEN TABLE TENNIS TOURNAMENT
+                </div>
+                <a href="index.html"><div class="logo-container">
+                    <img src="images/logo_min.jpg">
+                </div></a>
+                <div class="title">
+                    TABLE TENNIS TOURNAMENT 2013
+                </div>
+                <div class="menu-container clearfix">
+                    <ul class="menu" id="main-menu">
+                        <li>
+                            <a href="#home" class="active">
+                                <span data-hover="Home">Home</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#details">
+                                <span data-hover="Details">Details</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#register">
+                                <span data-hover="Register">Register</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#contact">
+                                <span data-hover="Contact">Contacts</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!--<div class="cursor-container">
+                    <div class="cursor"></div>
+                </div>-->
+            </div>
+            <div class="main-body clearfix">
+                <div class="inner-container-home full-page-div" id="home">
+                    <div class="overlay"></div>
+                    <div class="front">
+                        <div class="text-container">
+                            <div class="akgec-logo">
+                                <img src="images/akgec.png" alt="akgec logo">
+                            </div>
+                            <div class="sponsors">
+                                Ajay Kumar Garg Engineering College
+                            </div>
+                            <div class="date">November 9-10, 2013</div>
+                            <div class="home-text-content">
+                                The 17th annual Ajay Kumar Garg Memorial Table Tennis Tournament is to be conducted on 9th and 10th November 2013 at Ajay Kumar Garg Engineering College in association with the Ghaziabad District Table Tennis Association. The tournament is held every year in an air-conditioned hall, contains simultaneous matches on various tables. Teams from NCR, Haryana, Rajasthan, Uttarakhand, UP, and Punjab mark their participation  in 10 different categories ranging from ‘Under 18’ to ‘Over 40’ for men and women separately in individual and team events. A huge amount is kept as the prize money.
+                            </div>
+                            <div class="home-reviews-container">
+                                <div class="review-header" style="text-align: center;font-family: lato, sansation">
+                                    <h2>Dignitaries Speak...</h2>
+                                </div>
+                                <div class="reviews">
+                                    <p>“AKGEC has always been keen to ensure the academic excellence of its students along with providing them an environment to develop themselves as active contributors towards the society, and this tournament has always been a vital platform for us to achieve our objective. The visit of eminent Table Tennis players and dignitaries in our college in this tournament is a matter on which we can certainly take pride.”
+                                        <br/><br/><strong>-Dr. R.K. Agarwal, Director AKGEC, Ghaziabad</strong></p>
+                                        <p>“Every year this tournament brings a new zeal and vigour. Our college organises this event in association with the Ghaziabad District Table Tennis Association with a motive to provide the competent players a platform to showcase their talent and earn honour. We also feel proud to see the organising abilities of our student conveners, coordinators and volunteers.”
+                                            <br/><br/><br/><strong>-Prof. H.S. Siyan, Chief Organiser of the tournament, Dean Hostel, AKGEC, Ghaziabad</strong></p>
+                                            <p>“We express a heartiest thanks towards Ajay Kumar Garg Engineering College for associating us and organising this prestigious tournament in their institution. We thank Dr. Agarwal, Prof. Siyan for their extreme vital support in conducting this tournament on an annual basis. We also thank players from different states for participating and making this tournament even more memorable.”
+                                                <br/><br/><br/><strong>-Mr. Praveen Gupta
+                                                Secretary, Ghaziabad District Table Tennis Association</strong></p>
+                                                <p>“We are very happy for the event being organised in our college every year. I thank Director, Shree Praveen Gupta, Siyan sir, and all the students in organising team, it makes me very happy to see the players coming from outside playing with full energy and praising the tournament, I thank all.”
+                                                    <br/><br/><br/><strong>-Mr. Pratap Singh
+                                                    Sports Officer
+                                                    AKGEC, Ghaziabad</strong></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="inner-container-details full-page-div" id="details">
+                                    <div class="overlay"></div>
+                                    <div class="title-container" style="height: 4%;">
+                                        Details
+                                    </div>
+                                    <div class="text-container transluscent" style="font-size: 1rem; font-family: lato; text-align: left;background-color: rgba(0,0,0,0.8);padding-right:4%;">
+                                        <table class="details-table">
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        Eligibility:
+                                                    </td>
+                                                    <td>
+                                                        &nbsp&nbsp&nbsp&nbspEntry For Team Championships open to:
+                                                        <ul>
+                                                            <li>
+                                                                All Professional Institutes like Medical, Engineering, Management, B.Ed, Computer Applications etc.
+                                                            </li>
+                                                            <li>
+                                                                Any graduate/Post Graduate College.
+                                                            </li>
+                                                            <li>
+                                                                Organisations (Govt./ Semi Govt./ banks)
+                                                            </li>
+                                                            <li>
+                                                                Entry for individual events open to Men and Women team members and their extra players.
+                                                            </li>
+                                                            <li>
+                                                                All Boys and Girls Schools.
+                                                            </li>
+                                                            <li>
+                                                                Entry for individual events open to Men and Women team members and their extra players.
+                                                            </li>
+                                                            <li>
+                                                                All Boys and Girls Schools.
+                                                            </li>
+                                                        </ul></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <span class="big">Last date</span>
+                                                        </td>
+                                                        <td>
+                                                            Entries close temporarily on November 1, 2013, though on the spot registrations are welcome.
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <span class="big">Prizes</span>
+                                                        </td>
+                                                        <td>
+                                                            Mementos and prizes as mentioned beow will be awarded
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <br/>
+                                            <table class="table-details" border="1" style="border-collapse:collapse;">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Position</th>
+                                                        <th>Men Team</th>
+                                                        <th>Women Team</th>
+                                                        <th>Men</th>
+                                                        <th>Women</th>
+                                                        <th>Youth Boys</th>
+                                                        <th>Youth Girls</th>
+                                                        <th>Boys (under 18)</th>
+                                                        <th>Girls (under 18)</th>
+                                                        <th>Masters Men</th>
+                                                        <th>Masters Women</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>4200</td>
+                                                        <td>2400</td>
+                                                        <td>2500</td>
+                                                        <td>1500</td>
+                                                        <td>1800</td>
+                                                        <td>1200</td>
+                                                        <td>1200</td>
+                                                        <td>1000</td>
+                                                        <td>1500</td>
+                                                        <td>1000</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>2</td>
+                                                        <td>3600</td>
+                                                        <td>2100</td>
+                                                        <td>2000</td>
+                                                        <td>1200</td>
+                                                        <td>1500</td>
+                                                        <td>900</td>
+                                                        <td>900</td>
+                                                        <td>800</td>
+                                                        <td>1200</td>
+                                                        <td>800</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>3</td>
+                                                        <td>3000</td>
+                                                        <td>1800</td>
+                                                        <td>1500</td>
+                                                        <td>900</td>
+                                                        <td>1200</td>
+                                                        <td>700</td>
+                                                        <td>700</td>
+                                                        <td>600</td>
+                                                        <td>1000</td>
+                                                        <td>600</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>4</td>
+                                                        <td>--</td>
+                                                        <td>--</td>
+                                                        <td>1000</td>
+                                                        <td>600</td>
+                                                        <td>900</td>
+                                                        <td>500</td>
+                                                        <td>500</td>
+                                                        <td>400</td>
+                                                        <td>800</td>
+                                                        <td>--</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <p><span class="big">Note&nbsp&nbsp&nbsp&nbsp</span> The prizes may be reduced for less than 12 entries in any event.</p>
+                                            <p><span class="big">Schedule</span></p>
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>November 9, 2013</td>
+                                                        <td>09:00 AM</td>
+                                                        <td>Team Championship (Men and Women) and indivdual events- boys and youth boys</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td>11:00 AM</td>
+                                                        <td>Individual events- Women, girls, youth girls</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td>02:30 PM</td>
+                                                        <td>Individual events- Mens</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>November 10, 2013</td>
+                                                        <td>09:00 AM</td>
+                                                        <td>Rest of the mathes of first day and masters (men and women)</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td>04:30 PM</td>
+                                                        <td>Finals</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <p><span class="big">Entry Fees</span></p>
+                                            <table class="table-fees" border="1" style="border-collapse:collapse;">
+                                                <thead>
+                                                    <tr>
+                                                        <th>S.No.</th>
+                                                        <th>Team</th>
+                                                        <th>Age</th>
+                                                        <th>Criteria</th>
+                                                        <th>Entry Fees (in Rs.)</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>1</td>
+                                                        <td>Men Team</td>
+                                                        <td>--</td>
+                                                        <td>--</td>
+                                                        <td>400.00</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>2</td>
+                                                        <td>Women Team</td>
+                                                        <td>--</td>
+                                                        <td>--</td>
+                                                        <td>400.00</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>3</td>
+                                                        <td>Men</td>
+                                                        <td>--</td>
+                                                        <td>--</td>
+                                                        <td>150.00</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>4</td>
+                                                        <td>Women</td>
+                                                        <td>--</td>
+                                                        <td>--</td>
+                                                        <td>150.00</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>5</td>
+                                                        <td>Youth Boys</td>
+                                                        <td>Under 21 years</td>
+                                                        <td>Born on or after January 1, 1993</td>
+                                                        <td>150.00</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>6</td>
+                                                        <td>Youth Girls</td>
+                                                        <td>Under 21 years</td>
+                                                        <td>Born on or after January 1, 1993</td>
+                                                        <td>150.00</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>7</td>
+                                                        <td>Boys</td>
+                                                        <td>Under 18 years</td>
+                                                        <td>Born on or after January 1, 1996</td>
+                                                        <td>150.00</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>8</td>
+                                                        <td>Girls</td>
+                                                        <td>Under 18 years</td>
+                                                        <td>Born on or after January 1, 1996</td>
+                                                        <td>150.00</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>9</td>
+                                                        <td>Masters (men)</td>
+                                                        <td>Over 40 years</td>
+                                                        <td>Born on or before January 1, 1973</td>
+                                                        <td>150.00</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>10</td>
+                                                        <td>Masters (women)</td>
+                                                        <td>Over 40 years</td>
+                                                        <td>Born on or before January 1, 1973</td>
+                                                        <td>150.00</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <p><span class="big">Notes:</span> </p>
+                                            <ul>
+                                                <li>Outstation players shall be provided free boarding & lodging (in the hostel) if required.</li>
+                                                <li>Each Institute/Organisation may send one or two teams per event. There is no limit of participants for individual events. </li>
+                                                <li>The tournament will be played on knock out basis.</li>
+                                                <li>Each team shall consist of not more than three players.</li>
+                                                <li>The tournament will be conducted as per TTFI rules.</li>
+                                                <li>There will be three players in the team and they will draw for choice of ABC & XYZ playing order & the pattern of play will be as under:
+                                                    <ol>
+                                                        <li>A v/s X</li>
+                                                        <li>B v/s Y</li>
+                                                        <li>C v/s Z</li>
+                                                        <li>A v/s Y</li>
+                                                        <li>B v/s X</li>
+                                                    </ol>
+                                                </li>
+                                                <li>The decision of the tournament committee will be final in all the matters.</li>
+                                                <li>Dress regulations: All the participating players (Except Masters) are requested to wear proper kit like Half Pant, Skirt, T-Shirt etc.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="inner-container-register full-page-div" id="register">
+
+                                        <div class="title-container" style="color:#999;">
+                                            Register
+                                        </div>
+                                        <div class="text-container transluscent">
+                                                    <iframe src="./home.html" height="550px" width="80%" seamless style="margin: auto;"></iframe>
+                                            </div>
+                                        </div>
+                                        <div class="inner-container-contact full-page-div" id="contact">
+                                            <div class="title-container" style="padding-bottom: 2%;height:4%; color:#999;">
+                                                Organising Committee
+                                            </div>
+                                            <div class="transluscent"><a class="button" href="#reach" style="text-decoration:none;color:black;padding:1% 2%;font-size:1.3rem;border:2px solid black;">Click for Directions to venue</a></div>
+                                            <div class="text-container transluscent" style="width: 50%; padding-right:4%;font-size:1rem;background-color:rgba(0,0,0,0.6);text-align:left;color:white;z-index:2;">
+                                                <table border="1" style="border-collapse: collapse">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="row-heading" colspan="2">Patron</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Mr. Praveen Gupta</td>
+                                                            <td>Secretary Ghaziabad District Table Tennis Association</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="row-heading" colspan="2">Advisory Head</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Dr. R.K. Agarwal</td>
+                                                            <td>Director AKGEC Ghaziabad</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="row-heading" colspan="2">
+                                                                Organising Heads
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="2">Prof. H.S. Siyan, Dean Hostel, AKGEC</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td colspan="2">
+                                                                Pratap Singh, Sports Officer, AKGEC
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="row-heading" colspan="2">Student Convenors</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Apoorv Jain</td>
+                                                            <td>+917503761211</td>
+                                                        </tr>
+                                                        <tr><td>Aman Maheshwari</td>
+                                                            <td>+918010469679</td>
+                                                        </tr>
+                                                        <tr><td>Abhishek Agarwal</td>
+                                                            <td>+918802155656</td>
+                                                        </tr>
+                                                        <tr><td>Vikrant Chaudhry</td>
+                                                            <td>+919891983973</td>
+                                                        </tr>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="row-heading" colspan="2">
+                                                            Managing Heads
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">
+                                                            Jitender Bhati
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">Abhishek Lohiya</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">Ankit Dagar</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">Ayush Rathi</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="row-heading" colspan="2">Webmaster</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Rishabh Kesarwani</td>
+                                                        <td>+918860314027</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Mohd. Afaq Alam</td>
+                                                        <td>+919999678361</td>
+                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="row-heading" colspan="2">
+                                                            Web Team
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">Khushboo Singh</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">Tanay Tandon</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">Archit Saxena</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <br/>
+                                            <div class="transluscent query" style="text-align: left;">
+                                                <span class="big">Query Us</span><br/><br/>
+                                                <input class="pad-input" type='textbox' id="emailTextBox" placeholder="Your email Id or Contact Number" required size="90" />
+                                                <br/>
+                                                <textarea class="pad-input" placeholder="Your query here" id='queryTextArea' cols="70" rows="5" required/></textarea>
+                                                <br/>
+                                                <input class="pad-input" type='button' id='querySubmitButton' value="submit" />
+                                            </div>
+                                        </div>
+                                            <!--<div class="breadcrumbs">
+                                                <ul>
+                                                    <li>Home</li>
+                                                    <li>Details</li>
+                                                    <li>Register</li>
+                                                    <li>Reach Us</li>
+                                                </ul>
+                                            </div>-->
+                                        </div>
+                                        <div class="inner-container-reach full-page-div" id="reach">
+                                        <div class="overlay" id="map-overlay"></div>
+                                            <div class="title-container" style="position:absolute;z-index:2;background-color: rgba(255,255,255,0.6)">
+                                                Reach Us
+                                            </div>
+                                            <!--<div class="text-container" style="padding-top:2%;font-size:1.6rem;width:40%;margin-top:3%;margin-left: 14%;text-align: justify;">
+                                                The Open Table Tennis Tournament, Ghaziabad will be held at Ajay Kumar Garg Engineering College, Ghaziabad.
+                                                <br/>Ajay Kumar Garg Engineering College, 27th K.M. Stone, Adhyatmik Nagar, Ghaziabad.
+                                            </div>-->
+                                            <div id="map-canvas"></div>
+                                        </div>
+                                        <div class="inner-container-footer">
+                                            <div>Powered By <a href="http://www.silive.in">Software Incubator</a></div>
+                                            <div class="fb-like" data-href="https://www.facebook.com/RedifiningLimitations" data-width="300px" data-height="100px" data-colorscheme="light" data-layout="standard" data-action="like" data-show-faces="true" data-send="false"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </body>
+                    </html>

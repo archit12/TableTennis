@@ -1,0 +1,53 @@
+<html>
+	<head>
+		<title>TABLE TENNIS</title>
+		<script type="text/javascript" src="script/jquery.js"></script>
+		<script type="text/javascript" src="script/code.js"></script>
+		<link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+		<style type="text/css">
+			@font-face {
+				font-family:'sansation';
+				src: url('./font/sansation_light.ttf');
+			}
+			body {
+				font-family: 'lato';
+			}
+			#content {
+				margin: auto;
+				width: 70%;
+				height: 90%;
+			}
+			#content table td {
+				padding: 2% 4%;
+				font-size: 1.3rem;
+			}
+			#content table td:nth-child(1) {
+				width: 60%;
+				font-weight: bold;
+			}
+			#content table td input {
+				padding: 2% 4%;
+			}
+
+		</style>
+	</head>
+	<body>
+			<div id="content">
+			<form id="registration">
+				<table>
+					<tr><td>Name :</td><td><input type="text" id="Name" name="Name" placeholder="full name" required/></td><td></td></tr>
+					<!-- <tr><td>Password :</td><td><input id="Password" type="password" name="Password" required/></td><td></td></tr> -->
+					<tr><td>Date of Birth :</td><td><input type="date" id="DOB" name="DOB" placeholder="mm/dd/yyyy" required/></td><td></td></tr>
+					<tr><td>Gender :</td><td><input type="radio" id="Gender" name="Gender" value="Male" required/>Male <input type="radio" id="Gender" name="Gender" value="Female" required/>Female</td><td></td></tr>
+					<tr><td>Institutuion :</td><td><input type="text" id="Institution" placeholder="name of institution" name="Institution" /></td><td></td></tr>
+					<tr><td>Address :</td><td><input type="text" id="Address" name="Address" placeholder="permanent address" required/></td><td></td></tr>
+					<tr><td>Contact No. :</td><td><input type="tel" id="ContactNo" name="ContactNo" pattern="[7-9]\d{9}" placeholder="mobile number" required/></td><td></td></tr>
+					<tr><td>Email ID :</td><td><input type="email" id="EmailId" name="EmailId" placeholder="someone@example.com" /></td><td></td></tr>
+					<tr><td>Member of GDTA :</td><td><input type="radio" id="Member" name="Member" value="Yes" required/>Yes <input type="radio" id="Member" name="Member" value="No" required/>No</td><td></td></tr>
+					<tr><td>Accomodation Required :</td><td><input type="radio" id="Accomodation" name="Accomodation" value="Yes" required/>Yes  <input type="radio" id="Accomodation" name="Accomodation" value="No" required />No</td><td></td></tr>
+					<tr><td><input id="submit" type="button" value="Submit" /></td></tr>
+				</table>
+			</form>
+		    </div>
+  	</body>
+</html>
