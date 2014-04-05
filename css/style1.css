@@ -67,6 +67,16 @@ body {
     border-width: 2px;
     border-color: #ddd;
 }
+.login {
+    display: inline;
+    position: absolute;
+    top:0;
+    right: 10%;
+    background-color: rgba(0,0,0,0.6);
+    padding: 0.5% 2.5%;
+    color: white;
+    cursor: pointer;
+}
 .logo-container {
     height: 95%;
     width: 18%;
@@ -324,7 +334,7 @@ body {
         border-color: white !important;
     }
     .inner-container-contact table td{
-        padding: 1% 4% 1% 2%;
+        padding: 1% 4% 0% 2%;
         border-right: 2px solid black;
         height: 80%;
     }

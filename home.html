@@ -14,21 +14,33 @@
 			}
 			#content {
 				margin: auto;
-				width: 70%;
+				width: 80%;
 				height: 90%;
+				font-size: 1.3rem;
 			}
 			#content table td {
 				padding: 2% 4%;
 				font-size: 1.3rem;
 			}
 			#content table td:nth-child(1) {
-				width: 60%;
+				width: 55%;
 				font-weight: bold;
 			}
 			#content table td input {
 				padding: 2% 4%;
 			}
-
+			#content input {
+				padding: 2% 4%;
+			}
+			.button {
+				padding: 2% 4%;
+				border: 2px solid black;
+				cursor: pointer;
+			}
+			.button:hover {
+				color: white !important;
+        		border-color: white !important;
+			}
 		</style>
 	</head>
 	<body>
@@ -39,13 +51,13 @@
 					<!-- <tr><td>Password :</td><td><input id="Password" type="password" name="Password" required/></td><td></td></tr> -->
 					<tr><td>Date of Birth :</td><td><input type="date" id="DOB" name="DOB" placeholder="mm/dd/yyyy" required/></td><td></td></tr>
 					<tr><td>Gender :</td><td><input type="radio" id="Gender" name="Gender" value="Male" required/>Male <input type="radio" id="Gender" name="Gender" value="Female" required/>Female</td><td></td></tr>
-					<tr><td>Institutuion :</td><td><input type="text" id="Institution" placeholder="name of institution" name="Institution" /></td><td></td></tr>
+					<tr><td>Institution :</td><td><input type="text" id="Institution" placeholder="name of institution" name="Institution" /></td><td></td></tr>
 					<tr><td>Address :</td><td><input type="text" id="Address" name="Address" placeholder="permanent address" required/></td><td></td></tr>
 					<tr><td>Contact No. :</td><td><input type="tel" id="ContactNo" name="ContactNo" pattern="[7-9]\d{9}" placeholder="mobile number" required/></td><td></td></tr>
 					<tr><td>Email ID :</td><td><input type="email" id="EmailId" name="EmailId" placeholder="someone@example.com" /></td><td></td></tr>
 					<tr><td>Member of GDTA :</td><td><input type="radio" id="Member" name="Member" value="Yes" required/>Yes <input type="radio" id="Member" name="Member" value="No" required/>No</td><td></td></tr>
 					<tr><td>Accomodation Required :</td><td><input type="radio" id="Accomodation" name="Accomodation" value="Yes" required/>Yes  <input type="radio" id="Accomodation" name="Accomodation" value="No" required />No</td><td></td></tr>
-					<tr><td><input id="submit" type="button" value="Submit" /></td></tr>
+					<tr><td><span id="submit" class="button">Submit</span></td></tr>
 				</table>
 			</form>
 		    </div>

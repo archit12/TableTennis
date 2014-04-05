@@ -28,11 +28,12 @@ $(document).ready(function(){
 	$('#submit').click(function(e){
 		e.preventDefault();
 		var formData = $('#registration').serialize();
+		var html_content = '<div class=transluscent style="background-color:rgba(0,0,0,0.6);color:white;">Registering...<br/>Please Wait!</div>';
 		var flag = check(formData); 
 		if(flag == 0)
 		{
 			$(this).remove();
-			$('#content').html("Registering...<br/>Please Wait!");
+			$('#content').html(html_content);
 			$.ajax({
 				type: 'post',
 				url: 'registration.php',

@@ -89,7 +89,7 @@
 			}
 		}
 		}else{
-			echo 'Your team Members must be registered before you can create a team tell them to do so<br/>
+			echo 'Your team Members must be registered before you can create a team.<br/>
 			<input id="teambtn" type="button" name="EventType" value="Create a Team" onclick="onEventBtnClick()"/>
 			<input id="singlebtn" type="button" name="EventType" value="Single Player Events" onclick="onSingleBtnClick()" />';
 		}

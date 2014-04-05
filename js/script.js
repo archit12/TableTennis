@@ -7,6 +7,9 @@ $(document).ready(function() {
 			$('#map-overlay').show();
 		}
 	});
+	$('.login').click(function() {
+
+	});
     //------------------ load transitions
 	    //--------------------AKGEC logo transition
 		    var timer = setTimeout(function() {
@@ -120,10 +123,11 @@ $(document).ready(function() {
 	        if ($(document).scrollTop() > 200) {
 	            $('.nav').addClass('nav-small');
 	            $('.title').hide();
+	            $('.login').hide();
 	            $('.menu li').css("font-size",'1.3rem');
 	            $('.menu-container').addClass('menu-container-small');
 	            $('.cursor-container').addClass('cursor-container-small');
-            	$('.logo-container').hide('slow', function() {
+            	$('.logo-container').fadeOut('slow', function() {
             		$('.title-left').css("display", "block");
             	});
 	            
@@ -134,9 +138,10 @@ $(document).ready(function() {
 	            $('.menu-container').removeClass('menu-container-small');
 	            $('.menu li').css("font-size",'1.5rem');
 	            $('.cursor-container').removeClass('cursor-container-small');
-	            $('.title-left').hide('slow', function() {
-            		$('.logo-container').show("slow");
+	            $('.title-left').fadeOut(100, function() {
+            		$('.logo-container').fadeIn();
             	});
+            	$('.login').show();
 	        }
 	    });
 	//------------------ menu cursor position

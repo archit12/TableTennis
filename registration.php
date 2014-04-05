@@ -42,9 +42,9 @@
 			$r=mysqli_query($con,$query);
 			$id=mysqli_fetch_array($r);
 			echo '<b>Congratulations you have successfully registered for the event. Your Id for the tournament is'.$id[0].'</b><br/>  
-				 Event Registration :-
-		 		<input id="singlebtn" type="button" name="EventType" value="Single Player" onclick="onSingleBtnClick()" />
-				 	<input id="teambtn" type="button" name="EventType" value="Team" onclick="onEventBtnClick()"/>';
+				 Event Registration :-<br/><br/>
+		 		<span id="singlebtn" class="button" onclick="onSingleBtnClick()">Single Player</span>
+				 	<span id="teambtn" class="button" onclick="onEventBtnClick()">Team</span><br/><br/>';
 				$_SESSION['ID']=$id[0];	
 				sendEmail();
 		}
